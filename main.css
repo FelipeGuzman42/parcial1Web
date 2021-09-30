@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+#tituloPag{
+  font-family: 'Satisfy', cursive;
+  font-size: xx-large;
+}
+#complementoPagina{
+  display: none;
+}
+#detalleOrden{
+  display: none;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  margin: auto;
+  width: 60%;
+}      
+td, th {
+  text-align: left;
+  padding: 8px;
+}      
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+#complementoTabla{
+  border-collapse: collapse;
+  margin: auto;
+  width: 60%;
+}
+#alerta {
+  display: none;
+  position:fixed; 
+  top: 40%; 
+  left: 35%; 
+  width: 50%;
+  z-index:9999; 
+  border-radius:0px;
+}
+.btn-close {
+  float: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -20px;
+}

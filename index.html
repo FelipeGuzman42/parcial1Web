@@ -6,6 +6,7 @@
         <title>Page Title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" href="main.css" />
     </head>
     <body>
       <div class="card">
@@ -78,66 +79,28 @@
           </div>
           <div class="card text-end border-light">
             <div class="card-body">
-              <a class="btn btn-danger btn-outline-dark">Cancel</a>
-              <a class="btn btn-light btn-outline-dark">Confirm order</a>
+              <a class="btn btn-danger btn-outline-dark" onclick="showAlert()">Cancel</a>
+              <a class="btn btn-light btn-outline-dark" onclick="confirmarPedido()">Confirm order</a>
             </div>
           </div>
         </div>
       </div>
+      <br>
       <div class="card">
         <h6 class="text-center">Contact us: +57 3102105253 - info@restaurant.com - @restaurant</h6>
       </div>
       <div class="alert" id="alerta">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 60%;">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item <button class="btn-close" id="alertaCerrar" aria-label="Close"></button></li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
+            <li class="list-group-item"><h3>Cancel the order</h3><button type="button" class="btn-close" id="alertaCerrar" onclick="hideAlert()"></button></li>
+            <li class="list-group-item"><h5>Are you sure about cancelling the order?</h5></li>
+            <li class="list-group-item text-end">
+              <button type="button" class="btn btn-warning" onclick="borrarPedido()">Yes, I want to cancel the order</button><p></p>
+              <button type="button" class="btn btn-danger" onclick="hideAlert()">No, I want to continue adding products</button>
+            </li>
           </ul>
         </div>
       </div>
     <script src="main.js"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
-      #tituloPag{
-        font-family: 'Satisfy', cursive;
-        font-size: xx-large;
-      }
-      #complementoPagina{
-        display: none;
-      }
-      #detalleOrden{
-        display: none;
-      }
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        margin: auto;
-        width: 60%;
-      }      
-      td, th {
-        text-align: left;
-        padding: 8px;
-      }      
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-      #complementoTabla{
-        border-collapse: collapse;
-        margin: auto;
-        width: 60%;
-      }
-      .alert {
-        position:fixed; 
-        top: 25%; 
-        left: 25%; 
-        width: 50%;
-        z-index:9999; 
-        border-radius:0px;
-      }
-      #alertaCerrar {
-        float: right
-      }
-    </style>
     </body>
 </html>

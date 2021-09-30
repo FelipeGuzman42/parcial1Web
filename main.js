@@ -5,8 +5,14 @@ let detalleOrden = document.getElementById("detalleOrden");
 let card = document.getElementById("menu");
 let total = document.getElementById("total");
 let item = document.getElementById("item");
+let alerta = document.getElementById("alerta");
 let pedidos = {};
 let cantidad = {};
+var data;
+
+fetch(URL).then(res=>res.json().then(res=>{
+    data = res;
+}));
 
 function cambiarMenu (cat){
     const titulo = document.getElementById("tituloMenu");
@@ -14,25 +20,22 @@ function cambiarMenu (cat){
     titulo.textContent = cat.textContent;
     card.innerHTML = '';
     complementoPagina.style.display = "block";
-    fetch(URL).then(res=>res.json().then(res=>{
-        let data = res;
-        data.forEach(element => {
-            if (element.name == cat.textContent){
-                element.products.forEach(e => {
-                    let col = document.createElement('col');
-                    col.innerHTML = '<div class="card h-100">'+
-                    '<img src="'+e.image+'" class="card-img-top" height="300" alt="image">'+
-                    '<div class="card-body">'+
-                    '<h5 class="card-title">'+e.name+'</h5>'+
-                    '<p class="card-text">'+e.description+'</p>'+
-                    '<h6 class="card-text">$'+e.price+'</h6>'+
-                    '<button type="button" class="btn btn-dark" onclick="agregarCarrito(this)">Add to cart</button>'+
-                    '</div>'+'</div>';
-                    card.appendChild(col);
-                });
-            }
-        });
-    }))
+    data.forEach(element => {
+        if (element.name == cat.textContent){
+            element.products.forEach(e => {
+                let col = document.createElement('col');
+                col.innerHTML = '<div class="card h-100">'+
+                '<img src="'+e.image+'" class="card-img-top" height="300" alt="image">'+
+                '<div class="card-body">'+
+                '<h5 class="card-title">'+e.name+'</h5>'+
+                '<p class="card-text">'+e.description+'</p>'+
+                '<h6 class="card-text">$'+e.price+'</h6>'+
+                '<button type="button" class="btn btn-dark" onclick="agregarCarrito(this)">Add to cart</button>'+
+                '</div>'+'</div>';
+                card.appendChild(col);
+            });
+        }
+    });
 }
 
 function agregarCarrito(element){
@@ -84,4 +87,38 @@ function cambioPedido(e, cambio){
     }
     item.textContent = items+" items";
     showDetalleOrden();
+}
+
+function showAlert() {
+    alerta.style.display = "block";
+}
+
+function hideAlert() {
+    alerta.style.display = "none";
+}
+
+function borrarPedido(){
+    let table = document.getElementById("tabla");
+    table.innerHTML = '<tr><th>Item</th><th>Qty.</th><th>Description</th><th>Unit Price</th><th>Amount</th><th>Modify</th></tr>';
+    alerta.style.display = "none";
+    total.textContent = "Total: $0";
+    pedidos = {};
+    cantidad = {};
+    items = 0;
+    item.textContent = items+" items";
+}
+
+function confirmarPedido(){
+    let confirmados = [];
+    let i = 1;
+    Object.keys(pedidos).forEach(key => {
+        let confirmado = {};
+        confirmado["item"] = i;
+        confirmado["quantity"] = cantidad[key];
+        confirmado["description"] = key;
+        confirmado["unitPrice"] = pedidos[key];
+        confirmados.push(confirmado);
+        i++;
+    });
+    console.log(confirmados);
 }
