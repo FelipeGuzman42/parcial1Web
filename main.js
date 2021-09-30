@@ -3,6 +3,8 @@ let items = 0;
 const complementoPagina = document.getElementById("complementoPagina");
 let detalleOrden = document.getElementById("detalleOrden");
 let card = document.getElementById("menu");
+let total = document.getElementById("total");
+let item = document.getElementById("item");
 let pedidos = {};
 let cantidad = {};
 
@@ -35,7 +37,6 @@ function cambiarMenu (cat){
 
 function agregarCarrito(element){
     items++;
-    let item = document.getElementById("item");
     item.textContent = items+" items";
     let producto = element.parentElement.firstElementChild.textContent;
     let precio = Number(element.previousSibling.textContent.substring(1));
@@ -52,26 +53,35 @@ function showDetalleOrden(){
     card.innerHTML = '';
     detalleOrden.style.display = "block";
     let table = document.getElementById("tabla");
-    let total = document.getElementById("total");
+    table.innerHTML = '<tr><th>Item</th><th>Qty.</th><th>Description</th><th>Unit Price</th><th>Amount</th><th>Modify</th></tr>';
     let i = 1;
     let suma = 0;
-    console.log(pedidos);
-    console.log(cantidad);
     Object.keys(pedidos).forEach(key => {
-        console.log(key);
         let tr = document.createElement('tr');
         tr.innerHTML = '<td>' + i + '</td>' +
         '<td>' + cantidad[key] + '</td>'+
         '<td>' + key + '</td>' +
         '<td>' + pedidos[key] + '</td>'+
-        '<td>' + (pedidos[key] * cantidad[key]) + '</td>'+
+        '<td>' + (pedidos[key] * cantidad[key]).toFixed(2) + '</td>'+
         '<td>' +
-        '<button type="button" class="btn btn-secondary" onclick="agregarCantidad(this)">'+"+"+'</button>' + '  ' +
-        '<button type="button" class="btn btn-secondary" onclick="disminuirCantidad(this)">'+"-"+'</button>' + 
+        '<button type="button" class="btn btn-secondary" onclick="cambioPedido(this, 1)">+</button>' + '  ' +
+        '<button type="button" class="btn btn-secondary" onclick="cambioPedido(this, -1)">-</button>' + 
         '</td>';
         table.appendChild(tr);
         i++;
         suma += (pedidos[key] * cantidad[key]);
     });
-    total.textContent = "Total: $"+suma;
+    total.textContent = "Total: $"+suma.toFixed(2);
+}
+
+function cambioPedido(e, cambio){
+    let llave = e.parentElement.parentElement.firstElementChild.nextSibling.nextSibling.textContent;
+    items = items + cambio;
+    cantidad[llave] = cantidad[llave] + cambio;
+    if (cantidad[llave] == 0){
+        delete cantidad[llave];
+        delete pedidos[llave];
+    }
+    item.textContent = items+" items";
+    showDetalleOrden();
 }

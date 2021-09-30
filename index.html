@@ -69,14 +69,6 @@
           </div>
         </div>
         <table id="tabla">
-          <tr>
-            <th>Item</th>
-            <th>Qty.</th>
-            <th>Description</th>
-            <th>Unit Price</th>
-            <th>Amount</th>
-            <th>Modify</th>
-          </tr>
         </table>
         <div class="card-group" id="complementoTabla">
           <div class="card border-light">
@@ -94,6 +86,15 @@
       </div>
       <div class="card">
         <h6 class="text-center">Contact us: +57 3102105253 - info@restaurant.com - @restaurant</h6>
+      </div>
+      <div class="alert" id="alerta">
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item <button class="btn-close" id="alertaCerrar" aria-label="Close"></button></li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+          </ul>
+        </div>
       </div>
     <script src="main.js"></script>
     <style>
@@ -125,6 +126,17 @@
         border-collapse: collapse;
         margin: auto;
         width: 60%;
+      }
+      .alert {
+        position:fixed; 
+        top: 25%; 
+        left: 25%; 
+        width: 50%;
+        z-index:9999; 
+        border-radius:0px;
+      }
+      #alertaCerrar {
+        float: right
       }
     </style>
     </body>
